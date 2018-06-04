@@ -2,7 +2,6 @@ package com.example.testaccount.basementsandandroids3
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.View
