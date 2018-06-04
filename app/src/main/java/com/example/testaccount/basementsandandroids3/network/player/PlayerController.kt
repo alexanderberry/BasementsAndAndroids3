@@ -1,6 +1,6 @@
 package com.bna.game.network.player
 
-import com.bna.game.gdxLog
+import android.util.Log
 import com.example.testaccount.basementsandandroids3.network.json
 import com.example.testaccount.basementsandandroids3.network.player.*
 import io.socket.client.Socket
@@ -20,21 +20,21 @@ class PlayerController(private val socket: Socket, private val callback: (Player
 
     private fun configSocketEvents(): Unit = with(socket) {
         on(Socket.EVENT_CONNECT) {
-            gdxLog("Connected")
+            Log.d("asdf", "Connected")
         }
         on("PlayerConnectedChange") {
             val json = it[0] as JSONObject
-            gdxLog("Player Connected, ID: ${json.getInt("id")}")
+            Log.d("asdf", "Player Connected, ID: ${json.getInt("id")}")
             callback(OtherPlayerConnectionChange(true, json.getInt("id")))
         }
         on("PlayerDisconnectedChange") {
             val json = it[0] as JSONObject
-            gdxLog("Player Disconnected, ID: ${json.getInt("id")}")
+            Log.d("asdf", "Player Disconnected, ID: ${json.getInt("id")}")
             callback(OtherPlayerConnectionChange(false, json.getInt("id")))
         }
         on("SocketID") {
             val json = it[0] as JSONObject
-            gdxLog("My ID: ${json.getInt("id")}")
+            Log.d("asdf", "My ID: ${json.getInt("id")}")
         }
         //custom events
         on("PlayerGameStateUpdate") {
