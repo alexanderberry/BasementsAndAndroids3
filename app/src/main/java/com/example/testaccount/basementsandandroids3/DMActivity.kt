@@ -4,12 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
+import android.view.Menu
 import android.view.View
 import android.widget.PopupMenu
 
 import kotlinx.android.synthetic.main.activity_game.*
 
-class GameActivity : AppCompatActivity() {
+class DMActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,12 @@ class GameActivity : AppCompatActivity() {
                 imageButton.setImageDrawable(it.icon)
                 true
             }
+            popup.show()
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        return super.onPrepareOptionsMenu(menu)
     }
 }

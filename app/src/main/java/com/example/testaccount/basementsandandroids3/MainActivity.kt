@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         button.setOnClickListener {
-            val intent = Intent(this, GameActivity::class.java)
+            val intent = Intent(this, DMActivity::class.java)
             startActivity(intent)
         }
     }
