@@ -2,17 +2,37 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/one"
-        android:title="One"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:id="@+id/archer"
+        android:title="Archer"
+        android:icon="@drawable/archer"/>
 
     <item
-        android:id="@+id/two"
-        android:title="Two"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:id="@+id/barbarian"
+        android:title="Barbarian"
+        android:icon="@drawable/barbarian"/>
 
     <item
-        android:id="@+id/three"
-        android:title="Three"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:id="@+id/bard"
+        android:title="Bard"
+        android:icon="@drawable/bard"/>
+    <item
+        android:id="@+id/druid"
+        android:title="Druid"
+        android:icon="@drawable/druid"/>
+    <item
+        android:id="@+id/enemy"
+        android:title="Enemy"
+        android:icon="@drawable/enemy"/>
+    <item
+        android:id="@+id/fighter"
+        android:title="Fighter"
+        android:icon="@drawable/fighter"/>
+    <item
+        android:id="@+id/mage"
+        android:title="Mage"
+        android:icon="@drawable/mage"/>
+    <item
+        android:id="@+id/rogue"
+        android:title="Rogue"
+        android:icon="@drawable/rogue"/>
 </menu>
