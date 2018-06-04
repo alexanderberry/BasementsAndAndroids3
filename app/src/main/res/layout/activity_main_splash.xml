@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="handler"
-            type="com.example.chichow25.basementsandandroids.presenter.SplashScreenFragment.EventHandler"/>
-        <import type="com.example.chichow25.basementsandandroids.presenter.SplashScreenFragment.EventHandler"/>
-    </data>
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/mainActivityLayout"
         android:layout_width="match_parent"
