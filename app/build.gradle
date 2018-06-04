@@ -43,3 +43,8 @@ kotlin {
         coroutines "enable"
     }
 }
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
