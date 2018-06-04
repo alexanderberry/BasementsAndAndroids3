@@ -1,4 +1,4 @@
-package com.example.testaccount.basementsandandroids3.retrofit
+package com.example.testaccount.basementsandandroids3.repo.retrofit
 
 import retrofit2.Call
 import com.example.chichow25.basementsandandroids.repo.gamedata.Monster

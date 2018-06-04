@@ -2,11 +2,10 @@ package com.example.testaccount.basementsandandroids3
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.chichow25.basementsandandroids.repo.gamedata.Monster
 import com.example.testaccount.basementsandandroids3.repo.retrofit.await
 import com.example.testaccount.basementsandandroids3.repo.retrofit.getMonsterIndexes
 import com.example.testaccount.basementsandandroids3.repo.retrofit.loadMonsterInfosFromAssets
-import com.example.testaccount.basementsandandroids3.retrofit.DndApi
+import com.example.testaccount.basementsandandroids3.repo.retrofit.DndApi
 import kotlinx.android.synthetic.main.activity_monster.*
 import kotlinx.coroutines.experimental.launch
 import retrofit2.Retrofit
