@@ -4,12 +4,12 @@
     <item
         android:id="@+id/archer"
         android:title="Archer"
-        android:icon="@drawable/archer"/>
+        android:icon="@drawable/archer" />
 
     <item
         android:id="@+id/barbarian"
         android:title="Barbarian"
-        android:icon="@drawable/barbarian"/>
+        android:icon="@drawable/barbarian" />
 
     <item
         android:id="@+id/bard"
