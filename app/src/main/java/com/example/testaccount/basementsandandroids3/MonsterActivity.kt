@@ -25,7 +25,7 @@ class MonsterActivity : AppCompatActivity() {
                 .build()
                 .create(DndApi::class.java)
         launch {
-            val infos = loadMonsterInfosFromAssets()
+            val infos = this@MonsterActivity.applicationContext.loadMonsterInfosFromAssets()
             val monsters = infos.getMonsterIndexes().map {
                 api.getMonsterAt(it).await()
             }
