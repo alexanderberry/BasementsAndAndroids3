@@ -1,21 +1,24 @@
 package com.example.testaccount.basementsandandroids3
 
-import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import com.example.testaccount.basementsandandroids3.model.GameModel
 import com.example.testaccount.basementsandandroids3.network.NetworkHelper
+import com.google.gson.Gson
 
-import kotlinx.android.synthetic.main.activity_game.*
+import kotlinx.android.synthetic.main.activity_dm.*
+import kotlinx.coroutines.experimental.launch
+import retrofit2.converter.gson.GsonConverterFactory
 
 class DMActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+        setContentView(R.layout.activity_dm)
         imageButton.setOnClickListener(this)
         imageButton.tag = imageButton
         imageButton5.setOnClickListener(this)
@@ -50,7 +53,19 @@ class DMActivity : AppCompatActivity(), View.OnClickListener {
         imageButton4.tag = imageButton4
         val networkHelper = NetworkHelper("") //ip address (hardcoded)
         startgame.setOnClickListener {
-            val layout = window.decorView.rootView
+            val layout : GridLayout = window.decorView.rootView as GridLayout
+            val buttons = mutableListOf<ImageButton>()
+            for(i in 0..layout.childCount){
+                val v = layout.getChildAt(i)
+                if(v is ImageButton){
+                    buttons.add(v)
+                }
+            }
+            val gameModel = GameModel(buttons)
+            val gson = Gson()
+            launch { networkHelper.joinAsDM(gson.toJson(gameModel)) {
+
+            } }
         }
     }
 
