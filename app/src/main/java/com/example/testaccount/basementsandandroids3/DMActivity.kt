@@ -13,8 +13,10 @@ import com.example.testaccount.basementsandandroids3.model.GameModel
 import com.example.testaccount.basementsandandroids3.model.GameState
 import com.example.testaccount.basementsandandroids3.network.NetworkHelper
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 
@@ -62,8 +64,9 @@ class DMActivity : AppCompatActivity(), View.OnClickListener {
         imageButton4.tag = imageButton4
         val networkHelper = NetworkHelper("localhost") //ip address (hardcoded)
         val test = parseJson()
+        Log.wtf("DMActivity", test)
         startgame.setOnClickListener {
-            launch { networkHelper.joinAsDM(parseJson()) {
+            launch {     networkHelper.joinAsDM(parseJson()) {
                 Log.d("DMActivity", "Joined")
             } }
         }
@@ -82,7 +85,7 @@ class DMActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun parseJson(): String {
         val layout = mapLayout
-        val json = JSONObject()
+        val gson = Gson()
         val buttons = (0..layout.childCount)
                 .map { layout.getChildAt(it) }
                 .filterIsInstance<ImageButton>()
@@ -94,11 +97,15 @@ class DMActivity : AppCompatActivity(), View.OnClickListener {
             it !in playerButtons
         }
         val players = (0 until playerButtons.size)
-                .map { GameModel(playerButtons[it].x.toInt(), playerButtons[it].y.toInt(), 10, 10) }.toTypedArray()
+                .map { GameModel(playerButtons[it].x.toInt(), playerButtons[it].y.toInt(), 10, 10) }
         val enemies = (0 until enemyButtons.size)
-                .map { GameModel(enemyButtons[it].x.toInt(), enemyButtons[it].y.toInt(), 10, 10) }.toTypedArray()
-        json.put("players", players)
-        json.put("enemies", enemies)
-        return json.toString()
+                .map { GameModel(enemyButtons[it].x.toInt(), enemyButtons[it].y.toInt(), 10, 10) }
+        val playerElement = gson.toJsonTree(players, object : TypeToken<List<GameModel>>() {}.type)
+        val enemyElement = gson.toJsonTree(enemies, object : TypeToken<List<GameModel>>() {}.type)
+        val finalArray = JsonArray().apply {
+            add(playerElement.asJsonArray)
+            add(enemyElement.asJsonArray)
+        }
+        return finalArray.toString()
     }
 }
