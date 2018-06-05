@@ -1,17 +1,26 @@
 package com.example.testaccount.basementsandandroids3
 
 import android.os.Bundle
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.ContentFrameLayout
+import android.util.Log
 import android.view.View
 import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import com.example.testaccount.basementsandandroids3.model.GameModel
+import com.example.testaccount.basementsandandroids3.model.GameState
 import com.example.testaccount.basementsandandroids3.network.NetworkHelper
 import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 
 import kotlinx.android.synthetic.main.activity_dm.*
 import kotlinx.coroutines.experimental.launch
+import org.json.JSONObject
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DMActivity : AppCompatActivity(), View.OnClickListener {
@@ -51,20 +60,11 @@ class DMActivity : AppCompatActivity(), View.OnClickListener {
         imageButton3.tag = imageButton3
         imageButton4.setOnClickListener(this)
         imageButton4.tag = imageButton4
-        val networkHelper = NetworkHelper("") //ip address (hardcoded)
+        val networkHelper = NetworkHelper("localhost") //ip address (hardcoded)
+        val test = parseJson()
         startgame.setOnClickListener {
-            val layout : GridLayout = window.decorView.rootView as GridLayout
-            val buttons = mutableListOf<ImageButton>()
-            for(i in 0..layout.childCount){
-                val v = layout.getChildAt(i)
-                if(v is ImageButton){
-                    buttons.add(v)
-                }
-            }
-            val gameModel = GameModel(buttons)
-            val gson = Gson()
-            launch { networkHelper.joinAsDM(gson.toJson(gameModel)) {
-
+            launch { networkHelper.joinAsDM(parseJson()) {
+                Log.d("DMActivity", "Joined")
             } }
         }
     }
@@ -78,5 +78,27 @@ class DMActivity : AppCompatActivity(), View.OnClickListener {
             true
         }
         popup.show()
+    }
+
+    private fun parseJson(): String {
+        val layout = mapLayout
+        val json = JSONObject()
+        val buttons = (0..layout.childCount)
+                .map { layout.getChildAt(it) }
+                .filterIsInstance<ImageButton>()
+        val playerButtons = buttons.filter {
+            it.drawable.constantState != ResourcesCompat.getDrawable(resources, R.drawable.enemy, null)?.constantState
+                    && it.drawable.constantState != ResourcesCompat.getDrawable(resources, R.mipmap.ic_launcher_round, null)?.constantState
+        }
+        val enemyButtons = buttons.filter {
+            it !in playerButtons
+        }
+        val players = (0 until playerButtons.size)
+                .map { GameModel(playerButtons[it].x.toInt(), playerButtons[it].y.toInt(), 10, 10) }.toTypedArray()
+        val enemies = (0 until enemyButtons.size)
+                .map { GameModel(enemyButtons[it].x.toInt(), enemyButtons[it].y.toInt(), 10, 10) }.toTypedArray()
+        json.put("players", players)
+        json.put("enemies", enemies)
+        return json.toString()
     }
 }

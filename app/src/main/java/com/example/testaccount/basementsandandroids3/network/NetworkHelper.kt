@@ -14,7 +14,7 @@ import kotlin.coroutines.experimental.suspendCoroutine
 import kotlin.properties.Delegates
 
 class NetworkHelper(url: String) {
-    private val urlWithPort: String get() = "$url:8080"
+    private val urlWithPort: String = "$url:8080"
     private var socket: Socket = IO.socket(urlWithPort)
     var url: String by Delegates.observable(url) { _, _, _ ->
         socket.disconnect()
